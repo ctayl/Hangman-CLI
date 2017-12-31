@@ -1,11 +1,27 @@
 var inquirer = require('inquirer');
 
-inquirer.prompt([
-    {
-        type: "input",
-        name: "test",
-        message: "test-0",
+var game = {
+
+    guess: "",
+
+    prompt: function () {
+
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "guess",
+                message: "Guess a letter: "
+            }
+        ]).then(function (res) {
+            game.eval(res.guess);
+        })
+    },
+
+    eval: function(guess) {
+
+        console.log(guess);
     }
-]).then(function(res){
-    console.log(res);
-})
+};
+
+game.prompt();
+
