@@ -1,3 +1,6 @@
 module.exports = {
-    programming: ["javascript", "database", "server", "browser", "query", "response", "function", "loop", "asynchronous", "node", "script", "callback", "parameter"]
+    programming: {
+        title: "Programming",
+        vals: ["javascript", "database", "server", "browser", "query", "response", "function", "loop", "asynchronous", "node", "script", "callback", "parameter"]
+    }
 }

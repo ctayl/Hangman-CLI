@@ -10,7 +10,7 @@ var game = {
     guesses: [],
 
     // imported shuffle logic mixes options
-    words: Logic.shuffleArray(Topics.programming),
+    words: Logic.shuffleArray(Topics.programming.vals),
 
     wordCount: 0,
 
@@ -29,9 +29,12 @@ var game = {
             };
             console.log(" ");
             console.log("~~~ New round!! ~~~");
+            console.log("Topic is: " + Topics.programming.title);
+            console.log(" ");
             console.log("---------------------------------");
             console.log(display);
             console.log("---------------------------------");
+            console.log(" ");
             game.wordCount++;
 
             game.prompt();
@@ -83,10 +86,13 @@ var game = {
         };
         console.log(" ");
         console.log("~~~ You guessed " + guess + " ~~~");
+        console.log(" ");
         console.log("---------------------------------");
         console.log(display);
         console.log("---------------------------------");
         console.log("Your guesses: " + game.guesses);
+        console.log("Guesses left: " + (Math.abs(game.guesses.length - 5)));
+        console.log(" ");
         game.check(display);
 
     },
@@ -94,8 +100,12 @@ var game = {
     check: function (array) {
 
         if (game.guesses.length > 7) {
-            console.log("you lose");
-            console.log("The answer was: " + game.current.word);
+            console.log("~~~you lose~~~");
+            console.log(" ");
+            console.log("---------------------------------");
+            console.log("[ The answer was: " + game.current.word + " ] ");
+            console.log("---------------------------------");
+            console.log(" ");
             game.guesses = [];
             game.init();
         } else {
