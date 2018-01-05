@@ -1,6 +1,7 @@
 var inquirer = require('inquirer');
 var Word = require('./word.js');
 var Logic = require('./logic.js');
+var Topics = require('./topic.js');
 
 var game = {
 
@@ -9,7 +10,7 @@ var game = {
     guesses: [],
 
     // imported shuffle logic mixes options
-    words: Logic.shuffleArray(["zero", "one", "two", "three", "four"]),
+    words: Logic.shuffleArray(Topics.programming),
 
     wordCount: 0,
 
@@ -26,7 +27,11 @@ var game = {
                 display.push("_");
 
             };
+            console.log(" ");
+            console.log("~~~ New round!! ~~~");
+            console.log("---------------------------------");
             console.log(display);
+            console.log("---------------------------------");
             game.wordCount++;
 
             game.prompt();
@@ -43,16 +48,23 @@ var game = {
             name: "guess",
             message: "Guess a letter: "
         }]).then(function (res) {
-            game.guesses.push(" " + res.guess);
 
-            game.eval(res.guess);
+            if (game.guess === res.guess) {
+                console.log(res.guess + " has already been chosen");
+                game.prompt();
+            } else {
+                game.guess = res.guess;
+
+                game.eval(res.guess);
+            };
+
         })
     },
 
 
     eval: function (guess) {
 
-        
+        game.guesses.push(" " + game.guess);
 
         var display = [];
 
@@ -63,16 +75,17 @@ var game = {
             if (guess === letter) {
                 game.current.letters[i].guessed = true;
                 game.current.letters[i].display = letter;
+                game.guesses.pop();
             };
 
             display.push(game.current.letters[i].display);
 
         };
         console.log(" ");
+        console.log("~~~ You guessed " + guess + " ~~~");
         console.log("---------------------------------");
         console.log(display);
         console.log("---------------------------------");
-        console.log(" ");
         console.log("Your guesses: " + game.guesses);
         game.check(display);
 
@@ -80,8 +93,9 @@ var game = {
 
     check: function (array) {
 
-        if (game.guesses.length > 5) {
+        if (game.guesses.length > 7) {
             console.log("you lose");
+            console.log("The answer was: " + game.current.word);
             game.guesses = [];
             game.init();
         } else {
@@ -99,5 +113,3 @@ var game = {
 };
 
 game.init();
-
-// game.prompt();
